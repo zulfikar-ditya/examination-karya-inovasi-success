@@ -51,4 +51,10 @@ class AuthController extends Controller
 
         return redirect()->back()->with($this->get_set_message_crud(false, "Failed Register"));
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home');
+    }
 }
