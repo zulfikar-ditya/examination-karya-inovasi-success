@@ -31,4 +31,19 @@ class RolePermission extends Model
     }
 
     public function loadModel($request) {foreach ($this->fillable as $key_field) {foreach ($request as $key_request => $value) {if ($key_field == $key_request) $this->setAttribute($key_field, $value);}}}
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
