@@ -1,1 +1,3 @@
-@extends('name')
+@extends('layouts.guest')
+
+@section('title', 'Login ')
