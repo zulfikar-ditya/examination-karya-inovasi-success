@@ -21,6 +21,7 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Category</th>
+                    <th>User</th>
                     <th>Short Content</th>
                     <th>Created At</th>
                     <th>Last Modified</th>
@@ -32,12 +33,13 @@
                 <tr>
                     <td>{{ $model_key + 1 }}</td>
                     <td>{{ Str::limit($model_value->title, 50) }}</td>
-                    <td>{{ $model_value->category->name }}</td>
                     <td>{{ Str::limit($model_value->short_content, 70) }}</td>
+                    <td>{{ $model_value->category->name }}</td>
+                    <td>{{ $model_value->user->username }}</td>
                     <td>{{ $model_value->created_at->diffForHumans() }}</td>
                     <td>{{ $model_value->updated_at->diffForHumans() }}</td>
                     <td>
-                        <x-btn-link href="{{ route('admin.'.$title.'.show', $model_value) }}" class="bg-gradient-to-br from-cyan-500 to-teal-500 hover:from-teal-500 hover:to-cyan-500 w-auto">Detail</x-btn-link>
+                        {{-- <x-btn-link href="{{ route('admin.'.$title.'.show', $model_value) }}" class="bg-gradient-to-br from-cyan-500 to-teal-500 hover:from-teal-500 hover:to-cyan-500 w-auto">Detail</x-btn-link> --}}
                         <x-btn-link class="bg-gradient-to-br from-amber-500 to-orange-500 hover:from-amber-500 hover:to-orange-500" href="{{ route('admin.'.$title.'.edit', $model_value) }}" >Edit</x-btn-link>
                         <x-btn-link class="bg-gradient-to-br from-red-500 to-rose-500 hover:from-rose-500 hover:to-red-500" href="#" data-modal-toggle="modal-{{$model_value->id}}">Delete</x-btn-link>
                         <x-modal-delete id="{{$model_value->id}}" route="{{ route('admin.'.$title.'.destroy', $model_value)}}" />

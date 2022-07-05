@@ -17,3 +17,4 @@
         @include('admin.'.$title.'.__fields')
     </div>
 </x-card-crud>
+@endsection

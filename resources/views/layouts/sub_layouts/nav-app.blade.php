@@ -15,19 +15,19 @@
         <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                 <li>
-                    <a href="{{ route('admin.category.index') }}" class="{{ Route::currentRouteName() == 'admin.category.index' ? "nav-active" : "nav" }}" id="">Category</a>
+                    <a href="{{ route('admin.category.index') }}" class="{{ Route::currentRouteName() == 'admin.category.index' || Route::currentRouteName() == 'admin.category.create' || Route::currentRouteName() == 'admin.category.edit' || Route::currentRouteName() == 'admin.category.show' ? "nav-active" : "nav" }}" id="">Category</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.stories.index') }}" class="{{ Route::currentRouteName() == 'admin.stories.index' ? "nav-active" : "nav" }}" id="">Stories</a>
+                    <a href="{{ route('admin.stories.index') }}" class="{{ Route::currentRouteName() == 'admin.stories.index' || Route::currentRouteName() == 'admin.stories.create' || Route::currentRouteName() == 'admin.stories.edit' || Route::currentRouteName() == 'admin.stories.show' ? "nav-active" : "nav" }}" id="">Stories</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.role.index') }}" class="{{ Route::currentRouteName() == 'admin.role.index' ? "nav-active" : "nav" }}" id="">Role</a>
+                    <a href="{{ route('admin.role.index') }}" class="{{ Route::currentRouteName() == 'admin.role.index' || Route::currentRouteName() == 'admin.role.create' || Route::currentRouteName() == 'admin.role.edit' || Route::currentRouteName() == 'admin.role.show' ? "nav-active" : "nav" }}" id="">Role</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.permission.index') }}" class="{{ Route::currentRouteName() == 'admin.permission.index' ? "nav-active" : "nav" }}" id="">Permission</a>
+                    <a href="{{ route('admin.permission.index') }}" class="{{ Route::currentRouteName() == 'admin.permission.index' || Route::currentRouteName() == 'admin.permission.create' || Route::currentRouteName() == 'admin.permission.edit' || Route::currentRouteName() == 'admin.permission.show' ? "nav-active" : "nav" }}" id="">Permission</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.user.index') }}" class="{{ Route::currentRouteName() == 'admin.user.index' ? "nav-active" : "nav" }}" id="">User</a>
+                    <a href="{{ route('admin.user.index') }}" class="{{ Route::currentRouteName() == 'admin.user.index' || Route::currentRouteName() == 'admin.user.create' || Route::currentRouteName() == 'admin.user.edit' || Route::currentRouteName() == 'admin.user.show' ? "nav-active" : "nav" }}" id="">User</a>
                 </li>
                 @foreach ($nav_menus as $item)
                 <li>

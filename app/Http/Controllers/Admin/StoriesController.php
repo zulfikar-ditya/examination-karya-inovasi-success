@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Stories as model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoriesController extends Controller
 {
@@ -75,6 +76,7 @@ class StoriesController extends Controller
     {
         $model = new model();
         $this->validate($request, $model->rules());
+        $request['user_id'] = Auth::user()->id;
         $model->loadModel($request->all());
 
         if ($request->hasFile('image')) {
