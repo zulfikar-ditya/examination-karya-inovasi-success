@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $model = [];
         $roles = Role::all();
-        return view('admin.'.$this->folder.'.create', compact('model', 'role'));
+        return view('admin.'.$this->folder.'.create', compact('model', 'roles'));
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController extends Controller
     {
         $model = model::findOrFail($id);
         $roles = Role::all();
-        return view('admin.'.$this->folder.'.edit', compact('model', 'role'));
+        return view('admin.'.$this->folder.'.edit', compact('model', 'roles'));
     }
 
     /**

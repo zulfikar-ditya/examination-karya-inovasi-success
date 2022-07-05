@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landing\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'view_login'])->name('login');
@@ -30,4 +29,15 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/home', [HomeController::class, 'home'])->name('home');
+
+
+    Route::middleware([])->namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function () {
+        Route::resources([
+            'category' => CategoryController::class,
+            'role' => RoleController::class,
+            'permission' => PermissionController::class,
+            'user' => UserController::class,
+        ]);
+    });
 });

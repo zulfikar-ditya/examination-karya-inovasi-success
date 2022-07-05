@@ -1,5 +1,5 @@
 @php
-    $nav_menus = ['login', 'register']
+    $nav_menus = ['logout']
 @endphp
 
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800 shadow-md fixed top-0 left-0 right-0">
@@ -14,12 +14,37 @@
         </button>
         <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                <li>
+                    <a href="{{ route('admin.category.index') }}" class="{{ Route::currentRouteName() == 'admin.category.index' ? "nav-active" : "nav" }}" id="">Category</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.role.index') }}" class="{{ Route::currentRouteName() == 'admin.role.index' ? "nav-active" : "nav" }}" id="">Role</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.permission.index') }}" class="{{ Route::currentRouteName() == 'admin.permission.index' ? "nav-active" : "nav" }}" id="">Permission</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.user.index') }}" class="{{ Route::currentRouteName() == 'admin.user.index' ? "nav-active" : "nav" }}" id="">User</a>
+                </li>
                 @foreach ($nav_menus as $item)
                 <li>
-                    <a href="{{ route($item) }}" class="{{ Route::currentRouteName() == $item ? "nav-active" : "nav" }}">{{Str::headline($item)}}</a>
+                    <a href="{{ route($item) }}" class="{{ Route::currentRouteName() == $item ? "nav-active" : "nav" }}" id="{{$item}}">{{Str::headline($item)}}</a>
                 </li>
                 @endforeach
+                <form action="{{ route('logout') }}" method="post" id="logout-form">
+                    @csrf
+                </form>
             </ul>
         </div>
     </div>
 </nav>
+
+
+@push('script')
+    <script>
+        $('#logout').click((e) => {
+            e.preventDefault();
+            $('#logout-form').submit();
+        });
+    </script>
+@endpush

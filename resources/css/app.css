@@ -15,3 +15,20 @@ body {
 .nav-active {
     @apply block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white;
 }
+
+.main-table {
+    @apply relative overflow-x-auto shadow-md w-full;
+}
+
+table {
+    @apply w-full text-sm text-left;
+}
+
+th,
+td {
+    @apply px-4 py-3;
+}
+
+tr {
+    @apply even:bg-gray-100 bg-white border-b border-gray-300;
+}
