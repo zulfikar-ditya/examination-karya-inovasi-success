@@ -67,4 +67,11 @@ class Stories extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function toArray()
+    {
+        $toArray = parent::toArray();
+        $toArray['image'] = $this->image ? url('storage/'. $this->image) : url('image/pexels-alexas-fotos-2255441.jpg');
+        return $toArray;
+    }
 }
