@@ -1,6 +1,7 @@
 import "flowbite";
 import $ from "jquery";
 import "feather-icons";
+import "tinymce";
 
 window.$ = require("jquery");
 

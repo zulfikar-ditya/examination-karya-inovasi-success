@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
             'role' => RoleController::class,
             'permission' => PermissionController::class,
             'user' => UserController::class,
+            'stories' => StoriesController::class,
         ]);
     });
 });

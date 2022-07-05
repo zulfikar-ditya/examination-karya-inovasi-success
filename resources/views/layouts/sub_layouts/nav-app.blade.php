@@ -18,6 +18,9 @@
                     <a href="{{ route('admin.category.index') }}" class="{{ Route::currentRouteName() == 'admin.category.index' ? "nav-active" : "nav" }}" id="">Category</a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.stories.index') }}" class="{{ Route::currentRouteName() == 'admin.stories.index' ? "nav-active" : "nav" }}" id="">Stories</a>
+                </li>
+                <li>
                     <a href="{{ route('admin.role.index') }}" class="{{ Route::currentRouteName() == 'admin.role.index' ? "nav-active" : "nav" }}" id="">Role</a>
                 </li>
                 <li>
