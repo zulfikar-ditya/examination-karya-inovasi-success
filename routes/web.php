@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/{slug}', [HomeController::class, 'detail_stories'])->name('detail-stories');
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'view_login'])->name('login');
@@ -24,6 +25,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register', [AuthController::class, 'view_register'])->name('register');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
+
 
 
 

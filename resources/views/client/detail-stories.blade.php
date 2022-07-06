@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home ')
+@section('title', Str::headline($story->title). ' ')
 
 @section('content')
 <form class="">   
@@ -9,7 +9,6 @@
             <div class="w-full md:w-8/12">
 
                 <div class="p-5">
-
                     <div class="">
                         <div class="flex">
                             <label for="simple-search" class="sr-only">Search</label>
@@ -25,8 +24,30 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10">
-                        @foreach ($stories as $item)
+                    <div class="mt-10">
+
+                        <div class="mb-10">
+                            <h4 class="text-3xl font-bold tracking-wide mb-3">{{ Str::headline($story->title) }}</h4>
+                            <div class="flex gap-4">
+                                <span class="text-slate-500">{{ $story->created_at->diffForHumans() }}</span>
+                                <span class="text-slate-500">By {{ $story->user->username }}</span>
+
+                                <button type="submit" class="bg-blue-100 text-blue-800 text-md font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">{{ $story->category->name }}</button>
+                                <input type="hidden" name="category_id" value="{{ $story->category_id }}">
+                            </div>
+                        </div>
+
+                        <img class="rounded fir" src="{{ $story->image ? url('storage/' . $story->image) : asset('image/pexels-alexas-fotos-2255441.jpg') }}" alt="{{ $story->title }}">
+
+                        <span class="mt-10">
+                            {!!$story->content!!}
+                        </span>
+                    </div>
+
+                    <div class="mt-10">
+                        <h5 class="text-xl font-bold">Related Stories</h5>
+                        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10">
+                        @foreach ($related_stories as $item)
                             <div class="bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                                 <a href="{{ route('detail-stories', ['slug' => $item->slug]) }}">
                                     <img class="rounded-t-lg fir" src="{{ $item->image ? url('storage/' . $item->image) : asset('image/pexels-alexas-fotos-2255441.jpg')}}" alt="{{ $item->title }}">
@@ -43,11 +64,12 @@
                                 </div>
                             </div>
                         @endforeach
+                        </div>
                     </div>
-
                 </div>
 
             </div>
+
             <div class="w-full md:w-4/12 self-start sticky top-0 mt-20">
                 <div class="p-5">
 
@@ -90,6 +112,7 @@
 
                 </div>
             </div>
+
         </div>
     </div>
 </form>

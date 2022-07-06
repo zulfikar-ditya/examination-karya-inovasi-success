@@ -35,6 +35,18 @@ class HomeController extends Controller
         }
     }
 
+    public function detail_stories($slug)
+    {
+        $story = Stories::where('slug', $slug)->first();
+        if (empty($story)) return abort(404);
+
+        $related_stories = Stories::where('category_id', $story->category_id)->limit(4)->get();
+        $categories = Category::orderBy('name', 'asc')->get();
+        $my_stories = Stories::orderByDesc('created_at')->where('user_id', Auth::user()->id)->paginate(3);
+
+        return view('client.detail-stories', compact('story', 'related_stories', 'categories', 'my_stories'));
+    }
+
     public function home()
     {
         return redirect()->route('index');
