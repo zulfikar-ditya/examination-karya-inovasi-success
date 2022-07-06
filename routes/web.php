@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landing\HomeController;
+use App\Http\Controllers\Landing\StoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/{slug}', [HomeController::class, 'detail_stories'])->name('detail-stories');
+Route::get('/stories/{slug}', [HomeController::class, 'detail_stories'])->name('detail-stories');
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'view_login'])->name('login');
@@ -33,8 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 
+    Route::resource('my-stories', StoriesController::class);
 
-    Route::middleware([])->namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('admin')->namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resources([
             'category' => CategoryController::class,
             'role' => RoleController::class,

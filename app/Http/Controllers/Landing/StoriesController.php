@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -14,7 +14,7 @@ class StoriesController extends Controller
      * fild view location and route
      * @var string $folder 
      */
-    protected $folder = 'stories';
+    protected $folder = 'my-stories';
 
     /**
      * listing data table
@@ -50,8 +50,8 @@ class StoriesController extends Controller
         } else {
             $new_model = $model;
         }
-        $model = $new_model->latest()->paginate(10);
-        return view('admin.'.$this->folder.'.index', compact('model'));
+        $model = $new_model->latest()->where('user_id', Auth::user()->id)->paginate(10);
+        return view('client.'.$this->folder.'.index', compact('model'));
     }
 
     /**
@@ -63,7 +63,7 @@ class StoriesController extends Controller
     {
         $model = [];
         $categories = Category::all();
-        return view('admin.'.$this->folder.'.create', compact('model', 'categories'));
+        return view('client.'.$this->folder.'.create', compact('model', 'categories'));
     }
 
     /**
@@ -80,7 +80,7 @@ class StoriesController extends Controller
         $model->loadModel($request->all());
 
         if ($request->hasFile('image')) {
-            $model->image = $this->upload_file($request->file('image'), $this->folder);
+            $model->image = $this->upload_file($request->file('image'), 'stories');
         }
 
         try {
@@ -88,7 +88,7 @@ class StoriesController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with($this->get_set_message_crud(false, 'create', null, $th->getMessage()));
         }
-        return redirect()->route('admin.'.$this->folder.'.index')->with($this->get_set_message_crud());
+        return redirect()->route('client.'.$this->folder.'.index')->with($this->get_set_message_crud());
     }
 
     /**
@@ -100,7 +100,8 @@ class StoriesController extends Controller
     public function show($id)
     {
         $model = model::findOrFail($id);
-        return view('admin.'.$this->folder.'.show', compact('model'));
+        if ($model->user_id != Auth::user()->id) return abort(404);
+        return view('client.'.$this->folder.'.show', compact('model'));
     }
 
     /**
@@ -113,7 +114,8 @@ class StoriesController extends Controller
     {
         $model = model::findOrFail($id);
         $categories = Category::all();
-        return view('admin.'.$this->folder.'.edit', compact('model', 'categories'));
+        if ($model->user_id != Auth::user()->id) return abort(404);
+        return view('client.'.$this->folder.'.edit', compact('model', 'categories'));
     }
 
     /**
@@ -126,6 +128,7 @@ class StoriesController extends Controller
     public function update(Request $request, $id)
     {
         $model = model::findOrFail($id);
+        if ($model->user_id != Auth::user()->id) return abort(404);
         $old_file = $model->image;
         $new_model = new model();
         $this->validate($request, $new_model->rules());
@@ -133,14 +136,14 @@ class StoriesController extends Controller
 
         if ($request->hasFile('image')) {
             $this->delete_file($old_file ?? "");
-            $model->image = $this->upload_file($request->file('image'), $this->folder);
+            $model->image = $this->upload_file($request->file('image'), 'stories');
         }
         try {
             $model->save();
         } catch (\Throwable $th) {
             return redirect()->back()->with($this->get_set_message_crud(false, 'edit', null, $th->getMessage()));
         }
-        return redirect()->route('admin.'.$this->folder.'.index')->with($this->get_set_message_crud(true, 'edit'));
+        return redirect()->route('client.'.$this->folder.'.index')->with($this->get_set_message_crud(true, 'edit'));
     }
 
     /**
@@ -152,6 +155,7 @@ class StoriesController extends Controller
     public function destroy($id)
     {
         $model = model::findOrFail($id);
+        if ($model->user_id != Auth::user()->id) return abort(404);
         $old_file = $model->old_file;
         try {
             $model->delete();
@@ -159,6 +163,6 @@ class StoriesController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with($this->get_set_message_crud(false, 'delete', null, $th->getMessage()));
         }
-        return redirect()->route('admin.'.$this->folder.'.index')->with($this->get_set_message_crud(true, 'delete'));
+        return redirect()->route('client.'.$this->folder.'.index')->with($this->get_set_message_crud(true, 'delete'));
     }
 }

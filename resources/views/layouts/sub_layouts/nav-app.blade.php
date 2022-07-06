@@ -15,6 +15,13 @@
         <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
             <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
                 <li>
+                    <a href="{{ route('home') }}" class="{{ Route::currentRouteName() == 'home' ? "nav-active" : "nav" }}" id="">Home</a>
+                </li>
+                <li>
+                    <a href="{{ route('my-stories.index') }}" class="{{ Route::currentRouteName() == 'my-stories.index' ? "nav-active" : "nav" }}" id="">My Stories</a>
+                </li>
+                @if (Auth::user()->role == 'admin')
+                <li>
                     <a href="{{ route('admin.category.index') }}" class="{{ Route::currentRouteName() == 'admin.category.index' || Route::currentRouteName() == 'admin.category.create' || Route::currentRouteName() == 'admin.category.edit' || Route::currentRouteName() == 'admin.category.show' ? "nav-active" : "nav" }}" id="">Category</a>
                 </li>
                 <li>
@@ -29,6 +36,7 @@
                 <li>
                     <a href="{{ route('admin.user.index') }}" class="{{ Route::currentRouteName() == 'admin.user.index' || Route::currentRouteName() == 'admin.user.create' || Route::currentRouteName() == 'admin.user.edit' || Route::currentRouteName() == 'admin.user.show' ? "nav-active" : "nav" }}" id="">User</a>
                 </li>
+                @endif
                 @foreach ($nav_menus as $item)
                 <li>
                     <a href="{{ route($item) }}" class="{{ Route::currentRouteName() == $item ? "nav-active" : "nav" }}" id="{{$item}}">{{Str::headline($item)}}</a>

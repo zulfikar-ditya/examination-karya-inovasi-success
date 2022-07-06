@@ -1,4 +1,4 @@
-<x-form :action="$model ? route('admin.'.$title.'.update', $model) : route('admin.'.$title.'.store')" :model="$model ? true : false" class="mt-10">
+<x-form :action="$model ? route($title.'.update', $model) : route($title.'.store')" :model="$model ? true : false" class="mt-10">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <div class="">
             <x-input-group type="text" name="title" value="{{$model ? $model->title : ''}}" required autofocus />
